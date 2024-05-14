@@ -1,0 +1,8 @@
+int $main() {
+  int $abc 
+  int $variable 
+  int $c;
+  $abc = 5;
+  $variable = 3;
+  $c = $abc + $variable;
+}

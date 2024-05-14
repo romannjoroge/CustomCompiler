@@ -1,0 +1,269 @@
+S => @ BODY $
+BODY => @ WHILE_LOOP 
+BODY => @ STATEMENTS 
+BODY => @ IF 
+BODY => 𝝀
+BODY => WHILE_LOOP @
+BODY => STATEMENTS @
+BODY => IF @
+STATEMENTS => @ VARIABLE_DEFINITION
+STATEMENTS => @ FUNCTION_CALL ;
+STATEMENTS => @ ASSIGNMENT
+STATEMENTS => @ RETURN_STATEMENT
+STATEMENTS => VARIABLE_DEFINITION @
+STATEMENTS => FUNCTION_CALL ; @
+STATEMENTS => ASSIGNMENT @
+STATEMENTS => RETURN_STATEMENT@
+VARIABLE_DEFINITION => @ ID TYPE = LE ;
+VARIABLE_DEFINITION => ID @ TYPE = LE ;
+VARIABLE_DEFINITION => ID TYPE @ = LE ;
+VARIABLE_DEFINITION => ID TYPE = @ LE ;
+VARIABLE_DEFINITION => ID TYPE = LE @ ;
+VARIABLE_DEFINITION => ID TYPE = LE ; @
+VARIABLE_DEFINITION => @ ID TYPE = AE ;
+VARIABLE_DEFINITION => ID @ TYPE = AE ;
+VARIABLE_DEFINITION => ID TYPE @ = AE ;
+VARIABLE_DEFINITION => ID TYPE = @ AE ;
+VARIABLE_DEFINITION => ID TYPE = AE @ ;
+VARIABLE_DEFINITION => ID TYPE = AE ; @
+FUNCTION_CALL => @ ID ( ARGUMENTS )
+FUNCTION_CALL => ID @ ( ARGUMENTS )
+FUNCTION_CALL => ID ( @ ARGUMENTS )
+FUNCTION_CALL => ID ( ARGUMENTS @ )
+FUNCTION_CALL => ID ( ARGUMENTS ) @
+ASSIGNMENT => @ ID = INT ;
+ASSIGNMENT => ID @ = INT ;
+ASSIGNMENT => ID = @ INT ;
+ASSIGNMENT => ID = INT @ ;
+ASSIGNMENT => ID = INT ; @
+ASSIGNMENT => @ ID = AE ;
+ASSIGNMENT => ID @ = AE ;
+ASSIGNMENT => ID = @ AE ;
+ASSIGNMENT => ID = AE @ ;
+ASSIGNMENT => ID = AE ; @
+ASSIGNMENT => @ID = LE ;
+ASSIGNMENT => ID@ = LE ;
+ASSIGNMENT => ID = @LE ;
+ASSIGNMENT => ID = LE@ ;
+ASSIGNMENT => ID = LE ;@
+ASSIGNMENT => @ID = FLOAT ;
+ASSIGNMENT => ID @= FLOAT ;
+ASSIGNMENT => ID = @FLOAT ;
+ASSIGNMENT => ID = FLOAT@ ;
+ASSIGNMENT => ID = FLOAT ;@
+ASSIGNMENT => @ID = STR ;
+ASSIGNMENT => ID@ = STR ;
+ASSIGNMENT => ID =@ STR ;
+ASSIGNMENT => ID = STR@ ;
+ASSIGNMENT => ID = STR ;@
+ARGUMENTS => @ TYPE ID OTHER_ARGUMENTS
+ARGUMENTS => TYPE @ ID OTHER_ARGUMENTS
+ARGUMENTS => TYPE ID @ OTHER_ARGUMENTS
+ARGUMENTS => TYPE ID OTHER_ARGUMENTS @
+RETURN_STATEMENT =>@ return AE ;
+RETURN_STATEMENT => return @ AE ;
+RETURN_STATEMENT => return AE @ ;
+RETURN_STATEMENT => return AE ; @
+RETURN_STATEMENT => @ return LE ;
+RETURN_STATEMENT => return @ LE ;
+RETURN_STATEMENT => return LE @ ;
+RETURN_STATEMENT => return LE ;@
+RETURN_STATEMENT => @ return ID ;
+RETURN_STATEMENT => return @ ID;
+RETURN_STATEMENT => return ID @;
+RETURN_STATEMENT => return ID;@
+IF => @ if ( LE ) { BODY } ELSE_PART
+IF => if ( @ LE ) { BODY } ELSE_PART
+IF => if ( LE@ ) { BODY } ELSE_PART
+IF => if ( LE ) @{ BODY } ELSE_PART
+IF => if ( LE ) { @ BODY } ELSE_PART
+IF => if ( LE ) { BODY @ } ELSE_PART
+IF => if ( LE ) { BODY }@ ELSE_PART
+IF => if ( LE ) { BODY } ELSE_PART@
+ELSE_PART => @else if ( LE ) { BODY }
+ELSE_PART => else if @ ( LE ) { BODY }
+ELSE_PART => else if ( @LE ) { BODY }
+ELSE_PART => else if ( LE @ ) { BODY }
+ELSE_PART => else if ( LE ) @ { BODY }
+ELSE_PART => else if ( LE ) { @ BODY }
+ELSE_PART => else if ( LE ) { BODY @ }
+ELSE_PART => else if ( LE ) { BODY }@
+ELSE_PART => @else if ( LE ) { BODY } ELSE
+ELSE_PART => else if @( LE ) { BODY } ELSE
+ELSE_PART => else if ( @ LE ) { BODY } ELSE
+ELSE_PART => else if ( LE@ ) { BODY } ELSE
+ELSE_PART => else if ( LE ) @ { BODY } ELSE
+ELSE_PART => else if ( LE ) { @ BODY }ELSE
+ELSE_PART => else if ( LE ) { BODY @ } ELSE
+ELSE_PART => else if ( LE ) { BODY } @ ELSE
+ELSE_PART => else if ( LE ) { BODY } ELSE @
+ELSE_PART => @ ELSE
+ELSE_PART => ELSE @
+ELSE => @ else { BODY }
+ELSE => else @ { BODY }
+ELSE => else { @ BODY }
+ELSE => else { BODY @ }
+ELSE => else { BODY } @
+ELSE => 𝝀
+FUNCTION_DEFINITION => @ TYPE function ID ( ARGUMENTS ) { BODY }
+FUNCTION_DEFINITION => TYPE @ function ID ( ARGUMENTS ) { BODY }
+FUNCTION_DEFINITION => TYPE function @ ID ( ARGUMENTS ) { BODY }
+FUNCTION_DEFINITION => TYPE function ID @ ( ARGUMENTS ) { BODY }
+FUNCTION_DEFINITION => TYPE function ID ( @ ARGUMENTS ) { BODY }
+FUNCTION_DEFINITION => TYPE function ID ( ARGUMENTS @ ) { BODY }
+FUNCTION_DEFINITION => TYPE function ID ( ARGUMENTS ) @ { BODY }
+FUNCTION_DEFINITION => TYPE function ID ( ARGUMENTS ) { @ BODY }
+FUNCTION_DEFINITION => TYPE function ID ( ARGUMENTS ) { BODY @ }
+FUNCTION_DEFINITION => TYPE function ID ( ARGUMENTS ) { BODY } @
+AE => @AE + T
+AE => AE @ + T
+AE => AE + @T
+AE => AE + T@
+AE => @T
+AE => T@
+AE => @AE - T
+AE => AE@ - T
+AE => AE - @T
+AE => AE - T@
+T => @T * F
+T => T@ * F
+T => T * @F
+T => T * F@
+T => @F
+T => F@
+T => @T / F
+T => T@ / F
+T => T / @F
+T => T / F@
+F => @( AE )
+F => ( @AE )
+F => ( AE@ )
+F => ( AE )@
+F => @INT
+F => INT@
+F => @FLOAT
+F =>FLOAT@
+WHILE_LOOP => @ while ( LE )  {   BODY }
+WHILE_LOOP => while @ ( LE )  {   BODY }
+WHILE_LOOP => while ( @ LE )  {   BODY }
+WHILE_LOOP => while ( LE @ )  {   BODY }
+WHILE_LOOP => while ( LE ) @ {   BODY }
+WHILE_LOOP => while ( LE )  { @  BODY }
+WHILE_LOOP => while ( LE )  {   BODY @ }
+WHILE_LOOP => while ( LE )  {   BODY } @
+LE => @ LE < LE1
+LE => LE @ < LE1
+LE => LE  < @ LE1
+LE => LE  < LE1 @
+LE => @ LE > LE1
+LE => LE @ > LE1
+LE => LE > @ LE1
+LE => LE > LE1 @
+LE => @ LE < AE
+LE => LE @ < AE
+LE => LE < @ AE
+LE => LE < AE @
+LE => @ LE > AE
+LE => LE @ > AE 
+LE => LE > @ AE
+LE => LE > AE @
+LE => @ AE < LE
+LE => AE @ < LE
+LE => AE < @ LE
+LE => AE <  LE @
+LE => @ AE > LE
+LE => AE @ > LE
+LE => AE > @ LE
+LE => AE > LE @
+LE => @ AE < AE
+LE => AE @ < AE
+LE => AE  < @ AE
+LE => AE  <  AE @
+LE => @ AE > AE
+LE => AE @ > AE
+LE => AE > @ AE
+LE => AE > AE @
+LE => @ LE1
+LE => LE1 @
+LE1 => @ LE1 == LE2
+LE1 => LE1 @ == LE2
+LE1 => LE1  == @ LE2
+LE1 => LE1  == LE2 @
+LE1 => @ LE1 != LE2
+LE1 => LE1 @ != LE2
+LE1 => LE1 != @ LE2
+LE1 => LE1 !=  LE2 @
+LE1 => @ LE1 == AE
+LE1 => LE1 @ == AE
+LE1 => LE1 == @ AE
+LE1 => LE1 == AE @
+LE1 => @ LE1 != AE
+LE1 => LE1 @ != AE
+LE1 => LE1  != @  AE
+LE1 => LE1  !=  AE @
+LE1 => @ AE == LE1
+LE1 => AE @ == LE1
+LE1 => AE == @ LE1
+LE1 => AE == LE1 @
+LE1 => @ AE != LE1
+LE1 => AE @ != LE1
+LE1 => AE != @ LE1
+LE1 => AE != LE1 @
+LE1 => @ AE == AE
+LE1 => AE @ == AE
+LE1 => AE == @ AE
+LE1 => AE == AE @
+LE1 => @ AE != AE
+LE1 => AE @ != AE
+LE1 => AE != @ AE
+LE1 => AE != AE @
+LE1 => @ LE2
+LE1 => LE2 @
+LE2 => @ LE2 || LE3
+LE2 =>  LE2 @ || LE3
+LE2 =>  LE2 || @ LE3
+LE2 =>  LE2 || LE3 @
+LE2 => @ LE2 || AE
+LE2 => LE2 @ || AE
+LE2 => LE2 || @ AE
+LE2 => LE2 || AE @
+LE2 => @ AE || AE
+LE2 => AE @ || AE
+LE2 => AE || @ AE
+LE2 => AE || AE @
+LE2 => @ LE3 || AE
+LE2 => LE3 @ || AE
+LE2 => LE3 || @ AE
+LE2 => LE3 || AE @
+LE2 => @ LE3
+LE2 => LE3 @
+LE3 => @ LE3 && LE4
+LE3 => LE3 @ && LE4
+LE3 => LE3 && @ LE4
+LE3 => LE3 && LE4 @ 
+LE3 => @ LE3 && AE
+LE3 => LE3 @ && AE
+LE3 => LE3 && @ AE 
+LE3 => LE3 && AE @ 
+LE3 => @ AE && AE
+LE3 => AE @ && AE
+LE3 => AE && @ AE
+LE3 => AE && AE @
+LE3 => @ LE4
+LE3 => LE4 @
+LE4 => @ ! LE5
+LE4 => ! @ LE5
+LE4 => !  LE5 @
+LE4 => @ ! AE
+LE4 => ! @ AE
+LE4 => ! AE @
+LE4 => @  LE5
+LE4 => LE5 @
+LE5 => @ ( LE )
+LE5 => ( @ LE )
+LE5 => ( LE @ ) 
+LE5 => ( LE ) @ 
+LE5 => @ true
+LE5 => true @
+LE5 => @ false
+LE5 => false @
