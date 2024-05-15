@@ -86,7 +86,15 @@ def parserv2(inputs: List[List], trees) -> Tree:
 
             # Get go to 
             go_to = parse_df.loc[state_stack[-1], symbol_stack[-1]]
-            go_to_state = "S" + str(int(go_to))
+
+            if (type(go_to) is str):
+                if("S" not in go_to):
+                    go_to_state = "S"+go_to
+                else:
+                    go_to_state = go_to
+            else:
+                go_to_state = "S" + str(int(go_to))
+                
             print("Go to state => ", go_to_state, "Top of state stack => ", state_stack[-1], "Top of symbol stack => ", symbol_stack[-1])
 
             # Push state to state stack

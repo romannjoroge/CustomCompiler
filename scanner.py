@@ -251,6 +251,8 @@ def Scanner() -> List[List]:
 
         else:
           tokens.append(["INVALID_TOKEN", word])
+    
+    tokens.append(['$', "$"])
     return tokens
 
 

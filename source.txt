@@ -1,7 +1,9 @@
-if (2 < 3) {
-  $c int = 2;
-} elif (3 < 4) {
-  $d int = 4;
-} else {
-  $a int = 3;
+int function $main(int $x) {
+  
+  / $c int = 2;
+  if (2 < 2) {
+    return $c;
+  } else {
+    return 3;
+  }
 }
