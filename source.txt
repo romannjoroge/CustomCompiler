@@ -1,6 +1,4 @@
-int function $main() {
-  $abc int = 5; 
-  $variable int = 5; 
-  $c int = 2;
-  $c = $abc + $variable;
+int function $main(int $c) {
+  $c int = 3;
+  return $c;
 }

@@ -36,6 +36,14 @@ def parse(inputs: List[List], trees) -> Tree:
         top_of_stack = state_stack[-1]
         token = input[0]
         lexeme = input[1]
+
+        if (type(top_of_stack) is not str):
+            top_of_stack = "S" + str(int(top_of_stack))
+
+        if ("S" not in top_of_stack):
+            top_of_stack = 'S'+top_of_stack
+
+        print("Top of stack => ", top_of_stack, "Token => ", token)
         action = str(parse_df.loc[top_of_stack, token])
 
         print("Action => ", action, "Token => ", token, "Input => ", input, "Lexeme => ", lexeme)
