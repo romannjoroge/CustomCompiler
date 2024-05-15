@@ -38,6 +38,8 @@ def parse(inputs: List[List], trees) -> Tree:
         lexeme = input[1]
         action = str(parse_df.loc[top_of_stack, token])
 
+        print("Action => ", action, "Token => ", token, "Input => ", input, "Lexeme => ", lexeme)
+
         # If action is shift, shift
         if action[0] == 'S':
             # Append the token
@@ -88,6 +90,7 @@ def parse(inputs: List[List], trees) -> Tree:
             # append the new tree to the list of trees
             trees.append(newTree)
             
+            
         # implement the "accept" operation
         else:
             # set lhs as the start symbol; assume that the lhs of the 1st 
@@ -100,6 +103,7 @@ def parse(inputs: List[List], trees) -> Tree:
             newTree.data = lhs
             for tree in trees:
                 newTree.add(tree)
+            print()
 
     # return the new tree
     return newTree

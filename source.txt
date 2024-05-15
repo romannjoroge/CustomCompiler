@@ -1,8 +1,6 @@
-int $main() {
-  int $abc 
-  int $variable 
-  int $c;
-  $abc = 5;
-  $variable = 3;
+int function $main() {
+  $abc int = 5; 
+  $variable int = 5; 
+  $c int = 2;
   $c = $abc + $variable;
 }
