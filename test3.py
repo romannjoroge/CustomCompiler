@@ -1,7 +1,7 @@
 from scanner import Scanner
-from parser_1 import parse
+from parser_1 import parserv2
 
 tokens = Scanner()
-tree = parse(tokens, [])
+tree = parserv2(tokens, [])
 print(f"\n\n----------------TREE-------------------\n\n")
 tree.print()

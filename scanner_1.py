@@ -157,6 +157,9 @@ def Scanner() -> List[List]:
         elif word == 'else':
           tokens.append(['else', word])
 
+        elif word == 'elif':
+          tokens.append(['else if', word])
+
         elif word == 'function':
           tokens.append(['function', word])
           seen_function_keyword = True
@@ -248,6 +251,7 @@ def Scanner() -> List[List]:
 
         else:
           tokens.append(["INVALID_TOKEN", word])
+    tokens.append(["$", "$"])
     return tokens
 
 

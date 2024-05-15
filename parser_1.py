@@ -25,6 +25,108 @@ def getRHS(production):
 trees = []
 
 
+def parserv2(inputs: List[List], trees) -> Tree:
+    newTree = Tree()
+    # Initialize stacks
+    symbol_stack = []
+    state_stack = ['S0']
+
+    # For everything in input stream
+    # print(inputs)
+    i = 0
+    while i < int(len(inputs) / 2):
+        input = inputs[i]
+        token = input[0]
+        lexeme = input [1]
+
+        # Get action
+        top_of_stack = state_stack[-1]
+        action = str(parse_df.loc[top_of_stack, token])
+        print("Top of stack => ", top_of_stack, "Input token => ", token, "Action => ", action)
+
+        # Shift action
+        if action[0] == 'S':
+            # Add input token to symbol stack
+            symbol_stack.append(token)
+
+            # Add shifted to state to state stack
+            state = f"S{action[1:]}"
+            state_stack.append(state)
+
+            print("State stack => ", state_stack)
+            print("Symbol stack => ", symbol_stack)
+
+            # Add a tree to list of trees
+            tree = Tree()
+            tree.data = lexeme
+            trees.append(tree)
+            print("Action => ", action, "State => ", state, "Lexeme => ", lexeme)
+
+            i = i + 1
+
+        # Reduce action
+        elif action[0] == "R":
+            print(f"\nREDUCE\n")
+            # Get production
+            rule_number = int(action[1:]) - 1
+            production = grammar[rule_number].replace("@", "")
+            lhs = getLHS(production)
+            rhs = getRHS(production)
+
+            print("LHS => ", lhs, "RHS => ", rhs)
+            # Pop both stack as many times as len of rhs
+            for k in range(len(rhs.split())):
+                state_popped = state_stack.pop()
+                symbol_popped = symbol_stack.pop()
+                print(state_popped, "popped from state stack")
+                print(symbol_popped, "popped from symbol stack")
+
+            # Push LHS into symbol stack
+            symbol_stack.append(lhs)
+
+            # Get go to 
+            go_to = parse_df.loc[state_stack[-1], symbol_stack[-1]]
+            go_to_state = "S" + str(int(go_to))
+            print("Go to state => ", go_to_state, "Top of state stack => ", state_stack[-1], "Top of symbol stack => ", symbol_stack[-1])
+
+            # Push state to state stack
+            state_stack.append(go_to_state)
+            print("State stack => ", state_stack)
+            print("Symbol stack => ", symbol_stack)
+
+            # create a new tree and set data to lhs
+            newTree = Tree()
+            newTree.data = lhs
+
+            # get "len(rhs)" trees from the right of the list of trees and add
+            # each of them as child of the new tree you created, preserving
+            # the left-right order
+            for tree in trees[-len(rhs):]:
+                newTree.add(tree)
+
+            # remove "len(rhs)" trees from the right of the list of trees
+            trees = trees[:-len(rhs)]
+
+            # append the new tree to the list of trees
+            trees.append(newTree)
+
+        else:
+            print(f"\nUNKNOWN STATE\n")
+            print("Action => ", action, "Input => ", input, "Token => ", token, "Top of stack => ", state_stack[-1])
+            
+            # reduce all trees to the start symbol
+            newTree = Tree()
+            newTree.data = lhs
+            for tree in trees:
+                newTree.add(tree)
+            
+            i = i + 1
+    return newTree
+
+
+
+
+
 def parse(inputs: List[List], trees) -> Tree:
     # Keep track of states
     newTree = Tree()
