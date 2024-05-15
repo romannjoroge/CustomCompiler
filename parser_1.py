@@ -119,7 +119,7 @@ def parse(inputs: List[List], trees) -> Tree:
 tokens=Scanner()
 
 
-
+"""
 def loadSLR(input):
     actions={}
     gotos={}
@@ -148,5 +148,5 @@ def loadSLR(input):
                 value = None
             gotos[key] = value
     return (actions, gotos)
-
+"""
 
