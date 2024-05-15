@@ -30,8 +30,9 @@ def parse(inputs: List[List], trees) -> Tree:
     newTree = Tree()
     state_stack = ['S0']
 
-    # For each input
-    for input in inputs:
+    i = 0
+    while i < len(inputs):
+        input = inputs[i]
         # Get the action (get item at row with state and column of input)
         top_of_stack = state_stack[-1]
         token = input[0]
@@ -46,8 +47,6 @@ def parse(inputs: List[List], trees) -> Tree:
         print("Top of stack => ", top_of_stack, "Token => ", token)
         action = str(parse_df.loc[top_of_stack, token])
 
-        print("Action => ", action, "Token => ", token, "Input => ", input, "Lexeme => ", lexeme)
-
         # If action is shift, shift
         if action[0] == 'S':
             # Append the token
@@ -59,6 +58,8 @@ def parse(inputs: List[List], trees) -> Tree:
             tree = Tree()
             tree.data = lexeme
             trees.append(tree)
+            print("Action => ", action, "State => ", state, "Lexeme => ", lexeme)
+            i = i + 1
 
         # If action is reduce
         # Reduce
@@ -69,10 +70,13 @@ def parse(inputs: List[List], trees) -> Tree:
             lhs = getLHS(production)
             rhs = getRHS(production)
 
+            print("Rule number => ", rule_number, "LHS =>", lhs, "RHS => ", rhs)
+
             # Pop the stack 2 times the number of items at RHS of production
             num_items = len(rhs.split())
-            for i in range(num_items * 2):
-                state_stack.pop()
+            for j in range(num_items * 2):
+                popped_item = state_stack.pop()
+                print("Popped Item => ", popped_item)
 
             # Put at top of stack LHS of production
             prev_top_of_stack = state_stack[-1]
@@ -80,6 +84,7 @@ def parse(inputs: List[List], trees) -> Tree:
 
             # Put at top of stack the goto of previous top of stack and LHS of production
             new_top_item = parse_df.loc[prev_top_of_stack, lhs]
+            print("Prev Top of state => ", prev_top_of_stack, "LHS => ", lhs, "New Top => ", new_top_item)
             state_stack.append(new_top_item)
 
             # create a new tree and set data to lhs
@@ -111,7 +116,96 @@ def parse(inputs: List[List], trees) -> Tree:
             newTree.data = lhs
             for tree in trees:
                 newTree.add(tree)
+
+            i = i + 1
             print()
+
+    # For each input
+    # for input in inputs:
+    #     # Get the action (get item at row with state and column of input)
+    #     top_of_stack = state_stack[-1]
+    #     token = input[0]
+    #     lexeme = input[1]
+
+    #     if (type(top_of_stack) is not str):
+    #         top_of_stack = "S" + str(int(top_of_stack))
+
+    #     if ("S" not in top_of_stack):
+    #         top_of_stack = 'S'+top_of_stack
+
+    #     print("Top of stack => ", top_of_stack, "Token => ", token)
+    #     action = str(parse_df.loc[top_of_stack, token])
+
+    #     print("Action => ", action, "Token => ", token, "Input => ", input, "Lexeme => ", lexeme)
+
+    #     # If action is shift, shift
+    #     if action[0] == 'S':
+    #         # Append the token
+    #         state_stack.append(token)
+    #         # Append new state
+    #         state = f"S{action[1:]}"
+    #         state_stack.append(state)
+    #         # Add a tree to list of trees
+    #         tree = Tree()
+    #         tree.data = lexeme
+    #         trees.append(tree)
+
+    #     # If action is reduce
+    #     # Reduce
+    #     elif action[0] == 'R':
+    #         rule_number = int(action[1:]) - 1
+    #         # Get the production for the rule we are reducing
+    #         production = grammar[rule_number].replace("@", "")
+    #         lhs = getLHS(production)
+    #         rhs = getRHS(production)
+
+    #         print("Rule number => ", rule_number, "LHS =>", lhs, "RHS => ", rhs)
+
+    #         # Pop the stack 2 times the number of items at RHS of production
+    #         num_items = len(rhs.split())
+    #         for i in range(num_items * 2):
+    #             popped_item = state_stack.pop()
+    #             print("Popped Item => ", popped_item)
+
+    #         # Put at top of stack LHS of production
+    #         prev_top_of_stack = state_stack[-1]
+    #         state_stack.append(lhs)
+
+    #         # Put at top of stack the goto of previous top of stack and LHS of production
+    #         new_top_item = parse_df.loc[prev_top_of_stack, lhs]
+    #         print("Prev Top of state => ", prev_top_of_stack, "LHS => ", lhs, "New Top => ", new_top_item)
+    #         state_stack.append(new_top_item)
+
+    #         # create a new tree and set data to lhs
+    #         newTree = Tree()
+    #         newTree.data = lhs
+
+    #         # get "len(rhs)" trees from the right of the list of trees and add
+    #         # each of them as child of the new tree you created, preserving
+    #         # the left-right order
+    #         for tree in trees[-len(rhs):]:
+    #             newTree.add(tree)
+
+    #         # remove "len(rhs)" trees from the right of the list of trees
+    #         trees = trees[:-len(rhs)]
+
+    #         # append the new tree to the list of trees
+    #         trees.append(newTree)
+            
+            
+    #     # implement the "accept" operation
+    #     else:
+    #         # set lhs as the start symbol; assume that the lhs of the 1st 
+    #         # production has the start symbol
+    #         production = grammar[0]
+    #         lhs = getLHS(production)
+
+    #         # reduce all trees to the start symbol
+    #         newTree = Tree()
+    #         newTree.data = lhs
+    #         for tree in trees:
+    #             newTree.add(tree)
+    #         print()
 
     # return the new tree
     return newTree

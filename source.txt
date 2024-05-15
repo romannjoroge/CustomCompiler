@@ -1,4 +1,3 @@
-int function $main(int $c) {
-  $c int = 3;
-  return $c;
+if (true) {
+  $c int = 2;
 }
