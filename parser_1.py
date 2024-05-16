@@ -118,10 +118,9 @@ def parserv2(inputs: List[List], trees) -> Tree:
             # append the new tree to the list of trees
             trees.append(newTree)
 
-        else:
-            print(f"\nUNKNOWN STATE\n")
-            print("Action => ", action, "Input => ", input, "Token => ", token, "Top of stack => ", state_stack[-1])
-            
+        elif action == "ACCEPT":
+            print(f"\n\nSUCCESFULY PARSED!\n\n")
+
             # reduce all trees to the start symbol
             newTree = Tree()
             newTree.data = lhs
@@ -129,6 +128,12 @@ def parserv2(inputs: List[List], trees) -> Tree:
                 newTree.add(tree)
             
             i = i + 1
+
+        else:
+            print(f"\nUNKNOWN STATE\n")
+            print("Action => ", action, "Input => ", input, "Token => ", token, "Top of stack => ", state_stack[-1])
+            raise Exception(f"Unexpected input {lexeme}")
+            
     return newTree
 
 

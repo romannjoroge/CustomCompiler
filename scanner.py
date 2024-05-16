@@ -4,7 +4,7 @@ tokens = []  # store tokens
 
 def add_space(source_code):
   # Add space before and after special characters
-  source_code = re.sub(r'([^\w\s$])', r' \1 ', source_code)
+  source_code = re.sub(r'([^\w\s$.])', r' \1 ', source_code)
   return source_code
 
 def Scanner() -> List[List]:
