@@ -1,7 +1,7 @@
-from typing import List
+from typing import List, Tuple
 import pandas as pd
 from scanner import Scanner
-from tree import Tree
+from tree import Tree, MyTree
 
 parse_df = pd.read_csv("parse_table.csv")
 parse_df.head()
@@ -25,8 +25,10 @@ def getRHS(production):
 trees = []
 
 
-def parserv2(inputs: List[List], trees) -> Tree:
-    newTree = Tree()
+def parserv2(inputs: List[List], trees) -> MyTree:
+    id = 0
+    myTree = MyTree()
+    labels = []
     # Initialize stacks
     symbol_stack = []
     state_stack = ['S0']
@@ -47,7 +49,8 @@ def parserv2(inputs: List[List], trees) -> Tree:
         # Shift action
         if action[0] == 'S':
             # Add input token to symbol stack
-            symbol_stack.append(token)
+            symbol_stack.append((token, id))
+            labels.append((token, id))
 
             # Add shifted to state to state stack
             state = f"S{action[1:]}"
@@ -55,14 +58,10 @@ def parserv2(inputs: List[List], trees) -> Tree:
 
             print("State stack => ", state_stack)
             print("Symbol stack => ", symbol_stack)
-
-            # Add a tree to list of trees
-            tree = Tree()
-            tree.data = lexeme
-            trees.append(tree)
             print("Action => ", action, "State => ", state, "Lexeme => ", lexeme)
 
             i = i + 1
+            id = id + 1
 
         # Reduce action
         elif action[0] == "R":
@@ -74,18 +73,26 @@ def parserv2(inputs: List[List], trees) -> Tree:
             rhs = getRHS(production)
 
             print("LHS => ", lhs, "RHS => ", rhs)
+            children: List[Tuple[str, int]] = []
             # Pop both stack as many times as len of rhs
             for k in range(len(rhs.split())):
                 state_popped = state_stack.pop()
                 symbol_popped = symbol_stack.pop()
+                children.append(symbol_popped)
                 print(state_popped, "popped from state stack")
                 print(symbol_popped, "popped from symbol stack")
 
             # Push LHS into symbol stack
-            symbol_stack.append(lhs)
+            id = id + 1
+            symbol_stack.append((lhs, id))
+            labels.append((lhs, id))
+            
+            for child in children:
+                myTree.add((lhs, id), child)
+                
 
             # Get go to 
-            go_to = parse_df.loc[state_stack[-1], symbol_stack[-1]]
+            go_to = parse_df.loc[state_stack[-1], symbol_stack[-1][0]]
 
             if (type(go_to) is str):
                 if("S" not in go_to):
@@ -102,31 +109,8 @@ def parserv2(inputs: List[List], trees) -> Tree:
             print("State stack => ", state_stack)
             print("Symbol stack => ", symbol_stack)
 
-            # create a new tree and set data to lhs
-            newTree = Tree()
-            newTree.data = lhs
-
-            # get "len(rhs)" trees from the right of the list of trees and add
-            # each of them as child of the new tree you created, preserving
-            # the left-right order
-            for tree in trees[-len(rhs):]:
-                newTree.add(tree)
-
-            # remove "len(rhs)" trees from the right of the list of trees
-            trees = trees[:-len(rhs)]
-
-            # append the new tree to the list of trees
-            trees.append(newTree)
-
         elif action == "ACCEPT":
             print(f"\n\nSUCCESFULY PARSED!\n\n")
-
-            # reduce all trees to the start symbol
-            newTree = Tree()
-            newTree.data = lhs
-            for tree in trees:
-                newTree.add(tree)
-            
             i = i + 1
 
         else:
@@ -134,7 +118,7 @@ def parserv2(inputs: List[List], trees) -> Tree:
             print("Action => ", action, "Input => ", input, "Token => ", token, "Top of stack => ", state_stack[-1])
             raise Exception(f"Unexpected input {lexeme}")
             
-    return newTree
+    return myTree, labels
 
 
 
