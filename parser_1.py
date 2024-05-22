@@ -36,7 +36,7 @@ def parserv2(inputs: List[List], trees) -> MyTree:
     # For everything in input stream
     # print(inputs)
     i = 0
-    while i < int(len(inputs) / 2):
+    while i < int(len(inputs)):
         input = inputs[i]
         token = input[0]
         lexeme = input [1]
