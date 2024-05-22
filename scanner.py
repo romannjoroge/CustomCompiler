@@ -1,5 +1,6 @@
 import re
 from typing import List 
+import pandas as pd
 tokens = []  # store tokens
 
 def add_space(source_code):
@@ -253,6 +254,13 @@ def Scanner() -> List[List]:
           tokens.append(["INVALID_TOKEN", word])
     
     tokens.append(['$', "$"])
+
+    # Create a dataframe
+    df = pd.DataFrame(tokens, columns = ['TOKEN', 'LEXEME'])
+
+    # Store in CSV file
+    df.to_csv('symbol_table.csv')
+
     return tokens
 
 

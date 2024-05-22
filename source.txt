@@ -1,4 +1,7 @@
-if( 2.0 + 2 > 2.0 + 3) {
-    $y int = 4.0;
-    return $c;
+int function $add(int $x, int $y) {
+    / if (2 < 3) {
+        return $x;
+    } else {
+        return $y;
+    }
 }
