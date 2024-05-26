@@ -1,7 +1,6 @@
-int function $add(int $x, int $y) {
-    / if (2 < 3) {
-        return $x;
-    } else {
-        return $y;
-    }
+int function $add2num(int $x, int $y) {
+    / return $y;
 }
+$x int = 5;
+$y int = 10;
+$add2num($x $y);
