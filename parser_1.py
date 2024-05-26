@@ -24,8 +24,32 @@ def getRHS(production):
 
 trees = []
 
+def storeTypesData(inputs:List[List]):
+    identifier_meta={}
+    function_meta={}
+
+    for index , input in enumerate(inputs):
+        if input[0]=="TYPE":
+           if index + 1 < len(inputs) and inputs[index + 1][0] == "ID":
+                identifier_name=inputs[index+1][1]
+                identifier_type=input[1]
+                identifier_meta[identifier_name]={
+                        'identifier_type':identifier_type,
+                        'identifier_name':identifier_name
+                        }
+           elif index + 1 < len(inputs) and inputs[index + 1][0] == "function":
+                function_name=inputs[index+2][1]
+                return_type=input[1]
+                function_meta[function_name]={
+                        'return_type':return_type,
+                        'function_name':function_name
+                        }
+
+    print("identifier information=>",identifier_meta)
+    print("function information=>",function_meta)
 
 def parserv2(inputs: List[List], trees) -> MyTree:
+    storeTypesData(inputs)
     id = 0
     myTree = MyTree()
     labels = []
@@ -41,8 +65,8 @@ algorithm :
     variables : one to store identifier types , another for function metadata.
 
     """
-    identifier_meta={}
-    function_meta={}
+    #identifier_meta={}
+    #function_meta={}
     i = 0
     while i < int(len(inputs)):
         input = inputs[i]
@@ -103,7 +127,7 @@ algorithm :
             
             for child in children:
                 myTree.add((lhs, id), child)
-                
+            """   
             if lhs=="FUNCTION_DEFINITION":
                 func_name=None
                 return_type=None
@@ -134,7 +158,8 @@ algorithm :
                         id_type=lexeme
                 identifier_meta[id_name]={
                         'identifier_type':id_type,
-                        } 
+                        }
+            """
             # Get go to 
             go_to = parse_df.loc[state_stack[-1], symbol_stack[-1][0]]
 
@@ -161,6 +186,6 @@ algorithm :
             print(f"\nUNKNOWN STATE\n")
             print("Action => ", action, "Input => ", input, "Token => ", token, "Top of stack => ", state_stack[-1])
             raise Exception(f"Unexpected input {lexeme}")
-    print("function_metadata=>",function_meta)
-    print("identifier metadata=>",identifier_meta)
+    #print("function_metadata=>",function_meta)
+    #print("identifier metadata=>",identifier_meta)
     return myTree, labels
