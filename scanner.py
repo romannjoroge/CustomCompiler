@@ -1,9 +1,10 @@
 import re
 from typing import List 
+import pandas as pd
 tokens = []  # store tokens
 def add_space(source_code):
   # Add space before and after special characters
-  source_code = re.sub(r'([^\w\s$])', r' \1 ', source_code)
+  source_code = re.sub(r'([^\w\s$.])', r' \1 ', source_code)
   return source_code
 
 def Scanner() -> List[List]:
@@ -156,6 +157,9 @@ def Scanner() -> List[List]:
         elif word == 'else':
           tokens.append(['else', word])
 
+        elif word == 'elif':
+          tokens.append(['else if', word])
+
         elif word == 'function':
           tokens.append(['function', word])
           seen_function_keyword = True
@@ -247,4 +251,13 @@ def Scanner() -> List[List]:
 
         else:
           tokens.append(["INVALID_TOKEN", word])
+    
+    tokens.append(['$', "$"])
+
+    # Create a dataframe
+    df = pd.DataFrame(tokens, columns = ['TOKEN', 'LEXEME'])
+
+    # Store in CSV file
+    df.to_csv('symbol_table.csv')
+
     return tokens

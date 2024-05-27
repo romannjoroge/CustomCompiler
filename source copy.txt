@@ -1,0 +1,12 @@
+string function $grammar(int $c,  int $x) {
+    / if (2 < 3) {
+        return $c;
+    }
+
+    while (2 < 3) {
+        $c int = 2;
+    }
+
+    return $x;
+}
+
