@@ -24,8 +24,32 @@ def getRHS(production):
 
 trees = []
 
+def storeTypesData(inputs:List[List]):
+    identifier_meta={}
+    function_meta={}
+
+    for index , input in enumerate(inputs):
+        if input[0]=="TYPE":
+           if index + 1 < len(inputs) and inputs[index + 1][0] == "ID":
+                identifier_name=inputs[index+1][1]
+                identifier_type=input[1]
+                identifier_meta[identifier_name]={
+                        'identifier_type':identifier_type,
+                        'identifier_name':identifier_name
+                        }
+           elif index + 1 < len(inputs) and inputs[index + 1][0] == "function":
+                function_name=inputs[index+2][1]
+                return_type=input[1]
+                function_meta[function_name]={
+                        'return_type':return_type,
+                        'function_name':function_name
+                        }
+
+    print("identifier information=>",identifier_meta)
+    print("function information=>",function_meta)
 
 def parserv2(inputs: List[List], trees) -> MyTree:
+    storeTypesData(inputs)
     id = 0
     myTree = MyTree()
     labels = []
@@ -35,6 +59,9 @@ def parserv2(inputs: List[List], trees) -> MyTree:
 
     # For everything in input stream
     # print(inputs)
+
+       #identifier_meta={}
+    #function_meta={}
     i = 0
     while i < int(len(inputs)):
         input = inputs[i]
@@ -48,6 +75,8 @@ def parserv2(inputs: List[List], trees) -> MyTree:
 
         # Shift action
         if action[0] == 'S':
+            print(f"\nSHIFT\n",lexeme)
+
             # Add input token to symbol stack
             symbol_stack.append((token, id))
             labels.append((token, id))
@@ -55,6 +84,10 @@ def parserv2(inputs: List[List], trees) -> MyTree:
             # Add shifted to state to state stack
             state = f"S{action[1:]}"
             state_stack.append(state)
+
+
+ 
+
 
             print("State stack => ", state_stack)
             print("Symbol stack => ", symbol_stack)
@@ -65,7 +98,7 @@ def parserv2(inputs: List[List], trees) -> MyTree:
 
         # Reduce action
         elif action[0] == "R":
-            print(f"\nREDUCE\n")
+            print(f"\nREDUCE\n",lexeme)
             # Get production
             rule_number = int(action[1:]) - 1
             production = grammar[rule_number].replace("@", "")
@@ -89,8 +122,39 @@ def parserv2(inputs: List[List], trees) -> MyTree:
             
             for child in children:
                 myTree.add((lhs, id), child)
-                
+            """   
+            if lhs=="FUNCTION_DEFINITION":
+                func_name=None
+                return_type=None
+                param_types=[]
+                for child in children:
+                    token,child_id=child
+                    if token=="ID" and func_name is None:
+                        func_name=lexeme
+                    elif token=="TYPE" and return_type is None:
+                        return_type=lexeme
+                    #placeholder logic for now
+                    elif token=="ARGUMENTS":
+                        param_types.append(lexeme)
+                function_meta[func_name]={
+                    'func_name':func_name,
+                    'return_type':return_type,
+                    'param_types':param_types,
 
+                    }
+            elif lhs=="VARIABLE_DEFINITION":
+                id_type=None
+                id_name=None
+                for child in children:
+                    token,child_id=child
+                    if token=="ID" and id_name is None:
+                        id_name=lexeme
+                    elif token=="TYPE" and id_type is None:
+                        id_type=lexeme
+                identifier_meta[id_name]={
+                        'identifier_type':id_type,
+                        }
+            """
             # Get go to 
             go_to = parse_df.loc[state_stack[-1], symbol_stack[-1][0]]
 
@@ -108,7 +172,7 @@ def parserv2(inputs: List[List], trees) -> MyTree:
             state_stack.append(go_to_state)
             print("State stack => ", state_stack)
             print("Symbol stack => ", symbol_stack)
-
+        
         elif action == "ACCEPT":
             print(f"\n\nSUCCESFULY PARSED!\n\n")
             i = i + 1
@@ -118,5 +182,6 @@ def parserv2(inputs: List[List], trees) -> MyTree:
             print(f"\nUNKNOWN STATE\n")
             print("Action => ", action, "Input => ", input, "Token => ", token, "Top of stack => ", state_stack[-1])
             raise Exception(f"Unexpected input {lexeme}")
-            
+    #print("function_metadata=>",function_meta)
+    #print("identifier metadata=>",identifier_meta)
     return myTree, labels
