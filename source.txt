@@ -1,4 +1,6 @@
-int function $main(int $c) {
-  $c int = 3;
-  return $c;
+int function $add2num(int $x, int $y) {
+    / return $y;
 }
+$x int = 5;
+$y int = 10;
+$add2num($x $y);
