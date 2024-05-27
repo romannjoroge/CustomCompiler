@@ -1,8 +1,0 @@
-int function $main(int $c, int $d) {
-  $c int = 3;
-  return $c;
-}
-$c int = 3;
-$d int = 4;
-$main($c $d);
-
