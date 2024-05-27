@@ -113,6 +113,7 @@ def parserv2(inputs: List[List], trees) -> MyTree:
             print(f"\n\nSUCCESFULY PARSED!\n\n")
             i = i + 1
 
+
         else:
             print(f"\nUNKNOWN STATE\n")
             print("Action => ", action, "Input => ", input, "Token => ", token, "Top of stack => ", state_stack[-1])
