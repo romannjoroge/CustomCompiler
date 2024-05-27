@@ -60,12 +60,7 @@ def parserv2(inputs: List[List], trees) -> MyTree:
     # For everything in input stream
     # print(inputs)
 
-    """
-algorithm :
-    variables : one to store identifier types , another for function metadata.
-
-    """
-    #identifier_meta={}
+       #identifier_meta={}
     #function_meta={}
     i = 0
     while i < int(len(inputs)):
