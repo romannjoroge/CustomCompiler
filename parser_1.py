@@ -56,8 +56,7 @@ def parserv2(inputs: List[List], trees) -> MyTree:
     # Initialize stacks
     symbol_stack = []
     state_stack = ['S0']
-
-       #identifier_meta={}
+    identifier_meta={}
     #function_meta={}
     i = 0
     while i < int(len(inputs)):
@@ -175,5 +174,5 @@ def parserv2(inputs: List[List], trees) -> MyTree:
             print("Action => ", action, "Input => ", input, "Token => ", token, "Top of stack => ", state_stack[-1])
             raise Exception(f"Unexpected input {lexeme}")
     #print("function_metadata=>",function_meta)
-    #print("identifier metadata=>",identifier_meta)
-    return myTree, labels
+            print("identifier metadata=>",identifier_meta)
+    return myTree, labels, identifier_meta

@@ -1,6 +1,7 @@
 from scanner import Scanner
 from parser_1 import parserv2
 from allIdentifiersMustBeDefined import allIdentifiersMustBeDefined, getListOfArguements
+from expression_type_checker import checkExpressionTypes
 
 tokens = Scanner()
 tree, labels = parserv2(tokens, [])
@@ -16,4 +17,8 @@ print(f"\nSEMANTIC ANALYSIS\n")
 
 # Check if variable definition is there
 allIdentifiersMustBeDefined(tokens=tokens, tree=tree)
-print("All Identifiers are used after being defined")  
+print("All Identifiers are used after being defined")
+
+# Check if expressions have correct types
+checkExpressionTypes(tree, identifier_meta)
+print("Expression types successfully checked")
