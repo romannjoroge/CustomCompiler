@@ -64,17 +64,13 @@ def storeTypesData(inputs:List[List]):
 
 def parserv2(inputs: List[List], trees) -> MyTree:
     storeTypesData(inputs)
-    id = 0
     myTree = MyTree()
     labels = []
+
     # Initialize stacks
     symbol_stack = []
     state_stack = ['S0']
-
-    # For everything in input stream
-    # print(inputs)
-
-       #identifier_meta={}
+    identifier_meta={}
     #function_meta={}
     i = 0
     while i < int(len(inputs)):
@@ -92,23 +88,17 @@ def parserv2(inputs: List[List], trees) -> MyTree:
             print(f"\nSHIFT\n",lexeme)
 
             # Add input token to symbol stack
-            symbol_stack.append((token, id))
-            labels.append((token, id))
+            symbol_stack.append((token, i, lexeme))
+            labels.append((token, i))
 
             # Add shifted to state to state stack
             state = f"S{action[1:]}"
             state_stack.append(state)
-
-
- 
-
-
             print("State stack => ", state_stack)
             print("Symbol stack => ", symbol_stack)
             print("Action => ", action, "State => ", state, "Lexeme => ", lexeme)
 
             i = i + 1
-            id = id + 1
 
         # Reduce action
         elif action[0] == "R":
@@ -121,6 +111,8 @@ def parserv2(inputs: List[List], trees) -> MyTree:
 
             print("LHS => ", lhs, "RHS => ", rhs)
             children: List[Tuple[str, int]] = []
+
+            position_of_reduced = symbol_stack[-1][1]
             # Pop both stack as many times as len of rhs
             for k in range(len(rhs.split())):
                 state_popped = state_stack.pop()
@@ -130,12 +122,12 @@ def parserv2(inputs: List[List], trees) -> MyTree:
                 print(symbol_popped, "popped from symbol stack")
 
             # Push LHS into symbol stack
-            id = id + 1
-            symbol_stack.append((lhs, id))
-            labels.append((lhs, id))
+            # id = id + 1
+            symbol_stack.append((lhs, position_of_reduced))
+            labels.append((lhs, position_of_reduced))
             
             for child in children:
-                myTree.add((lhs, id), child)
+                myTree.add((lhs, position_of_reduced), child)
             """   
             if lhs=="FUNCTION_DEFINITION":
                 func_name=None
@@ -189,13 +181,12 @@ def parserv2(inputs: List[List], trees) -> MyTree:
         
         elif action == "ACCEPT":
             print(f"\n\nSUCCESFULY PARSED!\n\n")
-            i = i + 1
-
+            break
 
         else:
             print(f"\nUNKNOWN STATE\n")
             print("Action => ", action, "Input => ", input, "Token => ", token, "Top of stack => ", state_stack[-1])
             raise Exception(f"Unexpected input {lexeme}")
     #print("function_metadata=>",function_meta)
-    #print("identifier metadata=>",identifier_meta)
-    return myTree, labels
+            print("identifier metadata=>",identifier_meta)
+    return myTree, labels, identifier_meta

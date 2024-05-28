@@ -28,18 +28,12 @@ class MyTree:
 
     def add(self, parent: Tuple[str, int], item: Tuple[str, int]):
         if parent == None:
-            print("Item => ", item)
-            identifier = item[0] + str(item[1])
-            self.data[item[1]] = []
+            self.data[item] = []
         else:
-            print("Parent => ", parent, parent[0], parent[1])
-            identifier = parent[0] + " " + str(parent[1])
-            itemStore = item[0] + " " + str(item[1])
-            print("Identifier => ", identifier, "Itestore => ", itemStore)
-            self.data[parent[1]].append(item[1])
+            self.data[parent].append(item)
 
-            if self.data[item[1]] == None:
-                self.data[item[1]] = []
+            if self.data[item] == None:
+                self.data[item] = []
 
     def display(self):
         g = Graph(self.data)

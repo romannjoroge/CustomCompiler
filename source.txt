@@ -1,8 +1,12 @@
-int function $main(int $c, int $d) {
-  $c int = 3;
-  return $c;
+int function $func(int $x, int $y) {
+    / if (2 < 3) {
+        return $x;
+    } else {
+        return $y;
+    }
 }
-$x int = 3;
-$z int = 4;
-$main($x $z);
 
+
+while (2 > 3) {
+    $x = 3;
+}
