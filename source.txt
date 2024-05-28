@@ -6,6 +6,7 @@ int function $func(int $x, int $y) {
     }
 }
 
+
 while (2 > 3) {
     $x = 3;
 }

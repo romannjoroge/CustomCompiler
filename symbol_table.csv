@@ -1,14 +1,17 @@
 ,TOKEN,LEXEME
 0,TYPE,int
 1,function,function
+
 2,ID,$func
+ main
 3,(,(
 4,TYPE,int
-5,ID,$x
+5,ID,$c
 6,TYPE,int
-7,ID,$y
+7,ID,$d
 8,),)
 9,{,{
+
 10,if,if
 11,(,(
 12,INT,2
@@ -40,3 +43,4 @@
 38,;,;
 39,},}
 40,$,$
+
