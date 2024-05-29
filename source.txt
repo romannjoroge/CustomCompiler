@@ -1,12 +1,2 @@
-int function $func(int $x, int $y) {
-    / if (2 < 3) {
-        return $x;
-    } else {
-        return $y;
-    }
-}
-
-
-while (2 > 3) {
-    $x = 3;
-}
+$c int = 4;
+$d float = 3.4;
