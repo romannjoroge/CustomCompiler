@@ -1,11 +1,8 @@
-
-    
-    if(true)
-    {
-        $y int = 45;
-    }
-    elif(true){
-        $u float = 6.7;
-    }
-    
+if (true) {
+    $d int = 2;
+} elif (false) {
+    $x string = "Jello";
+} else {
+    $y boolean = false;
+}
 
