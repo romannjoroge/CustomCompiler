@@ -106,12 +106,16 @@ def icg():
 
                             if else_key[0] == "else if":
                                 else_key_exists = True
-                                
+                                # Get index of else if
+                                index_of_else_if = else_key[1]
+                                else_key_exists = index_of_else_if >= index
+                                print("ELSE KEY EXISTS => ", else_key_exists)
                                 break
                             
                         if else_key_exists:
                             for else_key in tree.data[our_else_if]:
                                 if else_key[0] == "LE":
+                                    print("Handling else if")
                                     le1 = tree.data[else_key][0]
                                     le2 = tree.data[le1][0]
                                     le3 = tree.data[le2][0]
@@ -137,7 +141,9 @@ def icg():
                                             print("open_brack", open_brack)
                                             index = open_brack[1] + 1
                                             break
-                        
+                            
+                            print("Continue Ran!")
+                            continue
 
                         # Creating key for else portion
                         our_else = ("ELSE", parent[1])
@@ -149,6 +155,7 @@ def icg():
                                     index = open_brack[1] + 1
                                     break
                         else:
+                            print("Final else ran!")
                             index = parent[1] + 1
 
                     else:
@@ -186,6 +193,11 @@ def icg():
                                         print("index@@#############", index)
                                         break
                 if key[0] == "ELSE":
+                    if token[0] == "}":
+                        index = parent[1] + 1
+                        print("index##$$ELSE", index)
+
+                if key[0] == "ELSE_PART":
                     if token[0] == "}":
                         index = parent[1] + 1
                         print("index##$$ELSE", index)
