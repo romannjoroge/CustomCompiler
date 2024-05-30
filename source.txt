@@ -2,4 +2,7 @@ if(true)
 {
 $d int = 4;
 }
-
+else{
+$c float = 5;
+}
+$f int = 7;

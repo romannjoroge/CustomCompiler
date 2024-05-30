@@ -95,16 +95,22 @@ def icg():
                         quad = f"(LABEL, {label})"
                         quadruples.append(quad)
 
-                        # # Creating key for else portion
-                        # our_else = ("ELSE", parent[1])
-                        # # Checking if else portion has any members
-                        # if len(tree.data[our_else]) > 0:
-                        #     # TODO handle body
-                        #     print(
-                        #         "ELSE portionfweffffffff@@@@@@",
-                        #         tree.data[our_else],
-                        #     )
-                        index = parent[1] + 1
+                        # Creating key for else portion
+                        our_else = ("ELSE", parent[1])
+                        # Checking if else portion has any members
+                        if len(tree.data[our_else]) > 0:
+                            # TODO handle body
+                            print(
+                                "ELSE portionfweffffffff@@@@@@",
+                                tree.data[our_else],
+                            )
+                            for open_brack in tree.data[our_else]:
+                                    if open_brack[0] == "{":
+                                        index = open_brack[1] + 1
+                                        print("index@@#############", index)
+                                        break
+                        else:
+                            index = parent[1] + 1
 
                     else:
                         for val in value:
@@ -140,7 +146,13 @@ def icg():
                                         index = open_brack[1] + 1
                                         print("index@@#############", index)
                                         break
-                                # End of IF block
+                if key[0] == "ELSE":
+                    if token[0] == "}":
+                        index = parent[1] + 1
+                        print("index##$$ELSE", index)
+                    
+                    
+                                        
                                 
 
                 # Handle while
