@@ -1,5 +1,3 @@
-if(true)
-{
-$d int = 4;
+if (true) {
+} elif (false) {
 }
-
