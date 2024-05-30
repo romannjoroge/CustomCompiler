@@ -1,3 +1,5 @@
 __pycache__
 .venv
 venv
+source.txt
+symbol_table.csv
