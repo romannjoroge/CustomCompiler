@@ -5,8 +5,8 @@
 3,INT,4
 4,;,;
 5,ID,$d
-6,TYPE,float
+6,TYPE,boolean
 7,=,=
-8,FLOAT,3.4
+8,true,true
 9,;,;
 10,$,$

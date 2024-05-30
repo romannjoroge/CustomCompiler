@@ -48,8 +48,11 @@ def icg():
                         index = parent[1] + 1
                         print("index", index)
                         break
+                   
+                        
+                        
         
-        print("index going to 6", index)
+        print("index going to {}".format(index))
     print("Quadruples: ", quadruples)
                 
                 

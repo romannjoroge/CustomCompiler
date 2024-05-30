@@ -1,2 +1,2 @@
 $c int = 4;
-$d float = 3.4;
+$d boolean = true;
