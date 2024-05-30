@@ -4,6 +4,7 @@ import pandas as pd
 tokens = []  # store tokens
 def add_space(source_code):
   # Add space before and after special characters
+  
   source_code = re.sub(r'([^\w\s$.])', r' \1 ', source_code)
   return source_code
 
@@ -215,8 +216,10 @@ def Scanner() -> List[List]:
           tokens.append([')', word])
 
         # logical operators
-        elif word in '&|':
-          tokens.append(['LOGICAL_OPERATOR', word])
+        elif word == '&&':
+          tokens.append(['&&', word])
+        elif word == '||':
+          tokens.append(['||', word])
 
         # comparison operators
         elif word in '==':
