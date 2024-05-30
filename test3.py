@@ -2,7 +2,7 @@ from scanner import Scanner
 from parser_1 import parserv2
 
 tokens = Scanner()
-tree, labels, x = parserv2(tokens, [])
+tree, labels= parserv2(tokens, [])
 print(f"\n\n----------------TREE-------------------\n\n")
 
 for key, value in tree.data.items():

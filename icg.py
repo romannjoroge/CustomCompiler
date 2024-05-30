@@ -5,7 +5,7 @@ def icg():
     Form the ICG
     """
     tokens = Scanner()
-    tree, labels, x = parserv2(tokens, [])
+    tree, labels = parserv2(tokens, [])
     quadruples  =[]
     temp_variables = 0
     label_vars = 0

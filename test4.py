@@ -2,9 +2,11 @@ from scanner import Scanner
 from parser_1 import parserv2
 from allIdentifiersMustBeDefined import allIdentifiersMustBeDefined, getListOfArguements
 from expression_type_checker import checkExpressionTypes
+from store import storeTypesData
 
 tokens = Scanner()
 tree, labels = parserv2(tokens, [])
+identifier_meta,function_meta=storeTypesData(tokens)
 print(f"\n\n----------------TREE-------------------\n\n")
 
 print("Tree is =>", tree.data)
