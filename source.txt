@@ -1,11 +1,9 @@
-
-    
-    if(true)
+int function $main(int $c, int $d){
+    $e int = 6; 
+    if(2<3<4)
     {
-        $y int = 45;
+
     }
-    elif(true){
-        $u float = 6.7;
-    }
+}
     
 
