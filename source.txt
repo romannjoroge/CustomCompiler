@@ -1,2 +1,8 @@
-$c int = 4;
-$d boolean = true;
+if(true)
+{
+
+}
+else{
+    
+}
+$d int = 4;
