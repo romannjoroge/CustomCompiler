@@ -33,7 +33,7 @@ def icg():
 
         # Look for the position of token in tree
         pos_token = (token[0], index, token[1])
-        for key, value in tree.data.items():
+        for key, value in list(tree.data.items()):
             parent = key
             # Handle parent accordingly
             if pos_token in value:
@@ -97,19 +97,56 @@ def icg():
                         quad = f"(LABEL, {label})"
                         quadruples.append(quad)
 
+                        # Handling else if
+                        our_else_if = ("ELSE_PART", parent[1])
+                        print("our_else_if", tree.data[our_else_if])
+                        else_key_exists = False
+
+                        for else_key in tree.data[our_else_if]:
+
+                            if else_key[0] == "else if":
+                                else_key_exists = True
+                                
+                                break
+                            
+                        if else_key_exists:
+                            for else_key in tree.data[our_else_if]:
+                                if else_key[0] == "LE":
+                                    le1 = tree.data[else_key][0]
+                                    le2 = tree.data[le1][0]
+                                    le3 = tree.data[le2][0]
+                                    le4 = tree.data[le3][0]
+                                    le5 = tree.data[le4][0]
+                                    # Creating temp variables to store IF logical expression
+                                    if_expression = tree.data[le5][0][2]
+                                    temp = f"t{temp_variables}"
+                                    temp_variables += 1
+                                    quad = f"(ASSIGN, {temp}, {if_expression})"
+                                    quadruples.append(quad)
+                                    # Temp variable to store negation of if expression
+                                    temp2 = f"t{temp_variables}"
+                                    temp_variables += 1
+                                    quad = f"(NOT, {temp2}, {temp})"
+                                    quadruples.append(quad)
+                                    # Creating label for the code in else or that which is executed if there is no if
+                                    label = f"L{label_vars}"
+                                    quad = f"(IF, {temp2}, {label})"
+                                    quadruples.append(quad)
+                                    for open_brack in tree.data[our_else_if]:
+                                        if open_brack[0] == "{":
+                                            print("open_brack", open_brack)
+                                            index = open_brack[1] + 1
+                                            break
+                        
+
                         # Creating key for else portion
                         our_else = ("ELSE", parent[1])
                         # Checking if else portion has any members
                         if len(tree.data[our_else]) > 0:
                             # TODO handle body
-                            print(
-                                "ELSE portionfweffffffff@@@@@@",
-                                tree.data[our_else],
-                            )
                             for open_brack in tree.data[our_else]:
                                 if open_brack[0] == "{":
                                     index = open_brack[1] + 1
-                                    print("index@@#############", index)
                                     break
                         else:
                             index = parent[1] + 1
