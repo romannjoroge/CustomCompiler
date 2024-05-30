@@ -1,1 +1,16 @@
-
+int function $main(int $c, int $v)
+{/
+    $g int = 7;
+    if(true)
+    {
+        $y int = 45;
+    }
+    else{
+        $u float = 6.7;
+    }
+    return $g;
+}
+$c int = 7;
+$v int = 9;
+$g int = 8;
+$main($c $v $g);

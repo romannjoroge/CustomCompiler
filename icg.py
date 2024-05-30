@@ -1,5 +1,7 @@
 from scanner import Scanner
 from parser_1 import parserv2
+from getfuncArgs import getfuncArgs
+from getFuncParams import getFuncParams
 
 
 def icg():
@@ -105,10 +107,10 @@ def icg():
                                 tree.data[our_else],
                             )
                             for open_brack in tree.data[our_else]:
-                                    if open_brack[0] == "{":
-                                        index = open_brack[1] + 1
-                                        print("index@@#############", index)
-                                        break
+                                if open_brack[0] == "{":
+                                    index = open_brack[1] + 1
+                                    print("index@@#############", index)
+                                    break
                         else:
                             index = parent[1] + 1
 
@@ -150,10 +152,6 @@ def icg():
                     if token[0] == "}":
                         index = parent[1] + 1
                         print("index##$$ELSE", index)
-                    
-                    
-                                        
-                                
 
                 # Handle while
                 if key[0] == "WHILE_LOOP":
@@ -201,6 +199,64 @@ def icg():
                                         break
 
                                 # We go to start of the while loop
+
+                # Handling function definition
+                if key[0] == "FUNCTION_DEFINITION":
+                    if token[0] == "}":
+                        # TODO: Where to jump to
+                        index = parent[1] + 1
+                    else:
+                        for val in value:
+                            function_args = []
+                            if val[0] == "ID":
+                                func_name = val[2]
+                                print("Function name", func_name)
+                                function_args = getfuncArgs(tokens, func_name)
+                                if function_args is None:
+                                    raise Exception("Function does not exist")
+                                else:
+                                    quad = f"(LABEL, {func_name})"
+                                    quadruples.append(quad)
+                                    if len(function_args) > 0:
+                                        for index, arg in enumerate(function_args):
+                                            if arg == "(":
+                                                continue
+                                            quad = f"(ASSIGN, {arg}, t{index})"
+                                            quadruples.append(quad)
+                                    for open_brack in value:
+                                        if open_brack[0] == "{":
+                                            index = open_brack[1] + 1
+                                            print("index@@#############", index)
+                                            break
+
+                if key[0] == "RETURN_STATEMENT":
+                    for val in value:
+                        if val[0] == "ID":
+                            quad = f"(ASSIGN, t8 , {val[2]})"
+                            quadruples.append(quad)
+                            index = parent[1] + 1
+                            break
+                if key[0] == "FUNCTION_CALL":
+                    for val in value:
+                        if val[0] == "ID":
+                            func_name = val[2]
+                            print("Function name", func_name)
+                            params = getFuncParams(tokens, func_name)
+                            if params is None:
+                                raise Exception("Function does not exist")
+                            else:
+                                quad = f"(ASSIGN, t0, {index})"
+                                for index, param in enumerate(params):
+                                    quad = f"(ASSIGN, t{index}, {param})"
+                                    quadruples.append(quad)
+
+                                quad = f"(GOTO, {func_name})"
+                                quadruples.append(quad)
+                                index = parent[1] + 1
+                                if tokens[index] == [";", ";"]:
+                                    index += 1
+
+                                break
 
         print("index going to {}".format(index))
     print("Quadruples: ", quadruples)
