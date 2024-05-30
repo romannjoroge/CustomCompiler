@@ -42,7 +42,7 @@ def icg():
                     #Handle parent accordingly
                     for val in value:
 
-                        #Varable definition
+                        #Variable definition
                         if val[0] == 'AE':
                             T = tree.data[val][0]
                             print("Tree T", T)
@@ -59,6 +59,8 @@ def icg():
                             index = parent[1] + 1
                             print("index", index)
                             break
+                
+                # Handling assignment
                 if key[0] == 'ASSIGNMENT':
                     print(" handling ASSIGNMENT")
                     for val in value:
@@ -69,6 +71,8 @@ def icg():
                             quadruples.append(quad)
                             index = parent[1] + 1
                             break
+
+                        # Handles assignment for AE
                         if val[0] == 'AE':
                             T = tree.data[val][0]
                             print("Tree T", T)
@@ -85,36 +89,48 @@ def icg():
                             index = parent[1] + 1
                             print("index", index)
                             break
-                            
+
+                # Handle if            
                 if key[0] == 'IF':
                     print("handling IF")
                     for val in value:
+                        # Handle the logical expression in IF
                         if val[0] == 'LE':
                             le1 = tree.data[val][0]
                             le2 = tree.data[le1][0]
                             le3 = tree.data[le2][0]
                             le4 = tree.data[le3][0]
                             le5 = tree.data[le4][0]
+
+                            # Creating temp variables to store IF logical expression
                             if_expression = tree.data[le5][0][2]
                             temp = f"t{temp_variables}"
                             temp_variables += 1
                             quad = f"(ASSIGN, {temp}, {if_expression})"
                             quadruples.append(quad)
-                            #Handling LE in if
+
+                            # Temp variable to store negation of if expression
                             temp2 = f"t{temp_variables}"
                             temp_variables += 1
                             quad = f"(NOT, {temp2}, {temp})"
                             quadruples.append(quad)
+
+                            # Creating label for the code in else or that which is executed if there is no if
                             label = f"L{label_vars}"
                             quad = f"(IF, {temp2}, {label})"
                             quadruples.append(quad)
+
                             #TODO:Handle the body
                             quad = f"(LABEL, {label})"
                             quadruples.append(quad)
+
+                            # Creating key for else portion
                             our_else = ('ELSE', parent[1])
+                            # Checking if else portion has any members
                             if len(tree.data[our_else]) > 0:
+                                pass
                                 
-                                
+                            # End of IF block
                             index = parent[1] + 1
                             
                             
