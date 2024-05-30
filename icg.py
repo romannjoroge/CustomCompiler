@@ -44,9 +44,17 @@ def icg():
                     print("handling VARIABLE_DEFINITION")
                     # Handle parent accordingly
                     for val in value:
+                        if val[0] == "STR":
+                            quad = f"(ASSIGN, {token[1]}, {val[2]})"
+                            quadruples.append(quad)
+
+                            # Jump to the end of the parent in the token list
+                            index = parent[1] + 1
+                            print("index", index)
+                            break
 
                         # Variable definition
-                        if val[0] == "AE":
+                        elif val[0] == "AE":
                             T = tree.data[val][0]
                             print("Tree T", T)
                             F = tree.data[T][0]
