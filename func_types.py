@@ -2,7 +2,6 @@ from scanner import Scanner
 
 
 def typesinCallmatchDef():
-    print("Types in function call should match the definition")
     """
     Arguments types in function call should match the definition.
     """

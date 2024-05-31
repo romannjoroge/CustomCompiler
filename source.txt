@@ -1,12 +1,19 @@
-int function $func(int $x, int $y) {
-    / if (2 < 3) {
-        return $x;
-    } else {
-        return $y;
-    }
+int function $greeting(string $name) {
+    return $name;
 }
 
+$d int = 4;
+$e int = 5;
+while(true) {
+    $name = "Roman Njoroge";
+    $greeting($name); 
 
-while (2 > 3) {
-    $x = 3;
+    if (false) {
+        $d = 10;
+    } elif (true) {
+        $e = 12;
+    } else {
+        $d = 1;
+        $e = 1;
+    }
 }

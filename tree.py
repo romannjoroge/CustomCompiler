@@ -25,6 +25,7 @@ class Tree:
 class MyTree:
     def __init__(self):
         self.data = defaultdict(list)
+        self.display_data = defaultdict(list)
 
     def add(self, parent: Tuple[str, int], item: Tuple[str, int]):
         if parent == None:
@@ -35,6 +36,18 @@ class MyTree:
             if self.data[item] == None:
                 self.data[item] = []
 
+    def add_display(self, parent: int, item: int):
+        print(f"Parent {parent} and its child {item} are being added to display tree")
+        if parent is None:
+            self.display_data[item] = []
+        else:
+            self.display_data[parent].append(item)
+
+            if self.display_data[item] == None:
+                self.display_data[item] = []
+
+        print("Display Data items => ", self.display_data)
+
     def display(self):
-        g = Graph(self.data)
+        g = Graph(self.display_data)
         g.plot()

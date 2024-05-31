@@ -80,23 +80,23 @@ IF => if ( LE ) { @ BODY } ELSE_PART
 IF => if ( LE ) { BODY @ } ELSE_PART
 IF => if ( LE ) { BODY }@ ELSE_PART
 IF => if ( LE ) { BODY } ELSE_PART@
-ELSE_PART => @else if ( LE ) { BODY }
-ELSE_PART => else if @ ( LE ) { BODY }
-ELSE_PART => else if ( @LE ) { BODY }
-ELSE_PART => else if ( LE @ ) { BODY }
-ELSE_PART => else if ( LE ) @ { BODY }
-ELSE_PART => else if ( LE ) { @ BODY }
-ELSE_PART => else if ( LE ) { BODY @ }
-ELSE_PART => else if ( LE ) { BODY }@
-ELSE_PART => @else if ( LE ) { BODY } ELSE
-ELSE_PART => else if @( LE ) { BODY } ELSE
-ELSE_PART => else if ( @ LE ) { BODY } ELSE
-ELSE_PART => else if ( LE@ ) { BODY } ELSE
-ELSE_PART => else if ( LE ) @ { BODY } ELSE
-ELSE_PART => else if ( LE ) { @ BODY }ELSE
-ELSE_PART => else if ( LE ) { BODY @ } ELSE
-ELSE_PART => else if ( LE ) { BODY } @ ELSE
-ELSE_PART => else if ( LE ) { BODY } ELSE @
+ELSE_PART => @elif ( LE ) { BODY }
+ELSE_PART => elif @ ( LE ) { BODY }
+ELSE_PART => elif ( @LE ) { BODY }
+ELSE_PART => elif ( LE @ ) { BODY }
+ELSE_PART => elif ( LE ) @ { BODY }
+ELSE_PART => elif ( LE ) { @ BODY }
+ELSE_PART => elif ( LE ) { BODY @ }
+ELSE_PART => elif ( LE ) { BODY }@
+ELSE_PART => @elif ( LE ) { BODY } ELSE
+ELSE_PART => elif @( LE ) { BODY } ELSE
+ELSE_PART => elif ( @ LE ) { BODY } ELSE
+ELSE_PART => elif ( LE@ ) { BODY } ELSE
+ELSE_PART => elif ( LE ) @ { BODY } ELSE
+ELSE_PART => elif ( LE ) { @ BODY }ELSE
+ELSE_PART => elif ( LE ) { BODY @ } ELSE
+ELSE_PART => elif ( LE ) { BODY } @ ELSE
+ELSE_PART => elif ( LE ) { BODY } ELSE @
 ELSE_PART => @ ELSE
 ELSE_PART => ELSE @
 ELSE => @ else { BODY }
@@ -300,3 +300,9 @@ OTHER_ARGS => @
 OTHER_ARGS => @ ID OTHER_ARGS
 OTHER_ARGS =>  ID @OTHER_ARGS
 OTHER_ARGS => ID OTHER_ARGS@
+VARIABLE_DEFINITION => @ID TYPE = STR ;
+VARIABLE_DEFINITION => ID @TYPE = STR ;
+VARIABLE_DEFINITION => ID TYPE @= STR ;
+VARIABLE_DEFINITION => ID TYPE = @STR ;
+VARIABLE_DEFINITION => ID TYPE = STR @ ;
+VARIABLE_DEFINITION => ID TYPE = STR ;@

@@ -5,12 +5,13 @@ import pandas as pd
 tokens = []  # store tokens
 
 
+import re
+
 def add_space(source_code):
-    # Add space before and after special characters
-
-    source_code = re.sub(r"([^\w\s$.])", r" \1 ", source_code)
-    return source_code
-
+  # Add space before and after special characters
+  
+  source_code = re.sub(r'([^\w\s$.])', r' \1 ', source_code)
+  return source_code
 
 def Scanner() -> List[List]:
     """
@@ -22,6 +23,7 @@ def Scanner() -> List[List]:
         source_code = file.read()
         source_code = add_space(source_code)
         source_code = source_code.split()
+        # Check if the current word starts with a dollar sign
         for index, word in enumerate(source_code):
             if word.startswith("$"):
                 # Check if the next two words are a closing bracket and an opening bracket
@@ -32,6 +34,8 @@ def Scanner() -> List[List]:
                 ):
                     # Insert a forward slash after the opening curly brace
                     source_code.insert(index + 3, "/")
+                    print("this is the source code after adding /", source_code)
+                    # source_code[index + 2] = "{/"
         i = 0
         while i < len(source_code) - 1:
             combined = source_code[i] + source_code[i + 1]
@@ -300,3 +304,7 @@ def Scanner() -> List[List]:
     df.to_csv("symbol_table.csv")
 
     return tokens
+
+
+tokens = Scanner()
+print("this are my tokens",tokens)
