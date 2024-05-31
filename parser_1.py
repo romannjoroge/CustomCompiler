@@ -32,8 +32,10 @@ def parserv2(inputs: List[List], trees) -> MyTree:
     
     myTree = MyTree()
     labels = []
+    diagram_identifier = 0
 
     # Initialize stacks
+    diagram_symbol_stack = []
     symbol_stack = []
     state_stack = ['S0']
     i = 0
@@ -53,6 +55,7 @@ def parserv2(inputs: List[List], trees) -> MyTree:
 
             # Add input token to symbol stack
             symbol_stack.append((token, i, lexeme))
+            diagram_symbol_stack.append(diagram_identifier)
             labels.append((token, i))
 
             # Add shifted to state to state stack
@@ -63,6 +66,7 @@ def parserv2(inputs: List[List], trees) -> MyTree:
             print("Action => ", action, "State => ", state, "Lexeme => ", lexeme)
 
             i = i + 1
+            diagram_identifier += 1
 
         # Reduce action
         elif action[0] == "R":
@@ -75,23 +79,31 @@ def parserv2(inputs: List[List], trees) -> MyTree:
 
             print("LHS => ", lhs, "RHS => ", rhs)
             children: List[Tuple[str, int]] = []
+            diagram_children = []
 
             position_of_reduced = symbol_stack[-1][1]
             # Pop both stack as many times as len of rhs
             for k in range(len(rhs.split())):
                 state_popped = state_stack.pop()
                 symbol_popped = symbol_stack.pop()
+                diagram_popped = diagram_symbol_stack.pop()
                 children.append(symbol_popped)
+                diagram_children.append(diagram_popped)
                 print(state_popped, "popped from state stack")
                 print(symbol_popped, "popped from symbol stack")
 
             # Push LHS into symbol stack
             # id = id + 1
+            diagram_identifier += 1
             symbol_stack.append((lhs, position_of_reduced))
-            labels.append((lhs, position_of_reduced))
+            diagram_symbol_stack.append(diagram_identifier)
+            labels.append((lhs, diagram_identifier))
             
             for child in children:
                 myTree.add((lhs, position_of_reduced), child)
+
+            for child in diagram_children:
+                myTree.add_display(diagram_identifier, child)
                   # Get go to 
             go_to = parse_df.loc[state_stack[-1], symbol_stack[-1][0]]
 

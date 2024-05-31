@@ -300,6 +300,3 @@ def Scanner() -> List[List]:
     df.to_csv("symbol_table.csv")
 
     return tokens
-
-
-print(Scanner())

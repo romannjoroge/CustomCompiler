@@ -100,10 +100,11 @@ def icg():
                 if key[0] == "IF":
                     print("handling IF")
                     if token[0] == "}":
-                        quad = f"(GOTO, {label})"
+                        quad = f"(GOTO, L{label_vars})"
                         quadruples.append(quad)
-                        quad = f"(LABEL, {label})"
+                        quad = f"(LABEL, L{label_vars})"
                         quadruples.append(quad)
+                        label_vars += 1
 
                         # Handling else if
                         our_else_if = ("ELSE_PART", parent[1])
@@ -157,6 +158,7 @@ def icg():
                         our_else = ("ELSE", parent[1])
                         # Checking if else portion has any members
                         if len(tree.data[our_else]) > 0:
+                            print("\nHandling Else\n")
                             # TODO handle body
                             for open_brack in tree.data[our_else]:
                                 if open_brack[0] == "{":
@@ -206,9 +208,24 @@ def icg():
                         print("index##$$ELSE", index)
 
                 if key[0] == "ELSE_PART":
-                    if token[0] == "}":
-                        index = parent[1] + 1
-                        print("index##$$ELSE", index)
+                    # Creating key for else portion
+                    our_else = ("ELSE", parent[1])
+                    # Checking if else portion has any members
+                    if len(tree.data[our_else]) > 0:
+                        # TODO handle body
+                        for open_brack in tree.data[our_else]:
+                            if open_brack[0] == "{":
+                                index = open_brack[1] + 1
+                                break
+                    else:
+                        if token[0] == "}":
+                            quad = f"(GOTO, L{label_vars})"
+                            quadruples.append(quad)
+                            quad = f"(LABEL, L{label_vars})"
+                            quadruples.append(quad)
+                            label_vars += 1
+                            index = parent[1] + 1
+                            print("index##$$ELSE", index)
 
                 # Handle while
                 if key[0] == "WHILE_LOOP":
@@ -261,6 +278,8 @@ def icg():
                 if key[0] == "FUNCTION_DEFINITION":
                     if token[0] == "}":
                         # TODO: Where to jump to
+                        quad = "(RETN, t0)"
+                        quadruples.append(quad);
                         index = parent[1] + 1
                     else:
                         for val in value:
@@ -316,7 +335,4 @@ def icg():
                                 break
 
         print("index going to {}".format(index))
-    print("Quadruples: ", quadruples)
-
-
-icg()
+    return quadruples

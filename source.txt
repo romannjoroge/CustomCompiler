@@ -1,7 +1,19 @@
-if (true) {
-    $d int = 2;
-} elif (false) {
-    $x string = "Jello";
-} else {
-    $y boolean = false;
+int function $greeting(string $name) {
+    return $name;
+}
+
+$d int = 4;
+$e int = 5;
+while(true) {
+    $name = "Roman Njoroge";
+    $greeting($name); 
+
+    if (false) {
+        $d = 10;
+    } elif (true) {
+        $e = 12;
+    } else {
+        $d = 1;
+        $e = 1;
+    }
 }
